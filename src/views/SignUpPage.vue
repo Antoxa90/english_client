@@ -37,13 +37,13 @@ import { AUTH } from '../constants/routes';
 
 export default {
   data() {
-    const usernameValiator = async (rule, value, callback) => {
+    const usernameValidator = async (rule, value, callback) => {
       try {
         let isError = false;
         await this.$refs.signUpForm.validateField(['password', 'confirmPassword'], (err) => {
           isError = isError || !!err;
         });
-        
+
         if (!isError) {
           await this.$store.dispatch('signup', { username: value, password: this.signUpForm.password });
           this.$router.push(AUTH);
@@ -53,7 +53,7 @@ export default {
       }
     };
 
-    const confirmPasswordValiator = async (rule, value, callback) => {
+    const confirmPasswordValidator = async (rule, value, callback) => {
       if(value !== this.signUpForm.password) {
         callback(new Error('Passwords should match'));
       }
@@ -64,12 +64,12 @@ export default {
       signUpForm: {
         username: '',
         password: '',
-        confirmPssword: '',
+        confirmPassword: '',
       },
       rules: {
         username: [
           { required: true, message: 'Username is required', trigger: 'blur' },
-          { validator: usernameValiator, trigger: 'submit' }
+          { validator: usernameValidator, trigger: 'submit' }
         ],
         password: [
           { required: true, message: 'Password is required', trigger: 'blur' },
@@ -77,7 +77,7 @@ export default {
         ],
         confirmPassword: [
           { required: true, message: 'Confirm Password is required', trigger: 'blur' },
-          { validator: confirmPasswordValiator, trigger: 'blur' }
+          { validator: confirmPasswordValidator, trigger: 'blur' }
         ],
       }
     };

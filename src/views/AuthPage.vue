@@ -31,7 +31,7 @@ import { SIGN_UP } from '../constants/routes';
 
 export default {
   data() {
-    const usernameValiator = async (rule, value, callback) => {
+    const usernameValidator = async (rule, value, callback) => {
       try {
         const isAuth = await this.$store.dispatch('login', { username: value, password: this.authForm.password });
         if (isAuth) {
@@ -51,7 +51,7 @@ export default {
       rules: {
         username: [
           { required: true, message: 'Please enter username', trigger: 'blur' },
-          { validator: usernameValiator, trigger: 'submit' }
+          { validator: usernameValidator, trigger: 'submit' }
         ],
         password: [
           { required: true, message: 'Please enter password', trigger: 'blur' }
