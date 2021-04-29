@@ -80,9 +80,13 @@ export default {
     };
 
     const addWord = async () => {
-      const data = await postData(`${GET_WORD}`, { word: search.value });
-      search.value = '';
-      router.push(`${CARDS}/${data.id}`);
+      try {
+        const data = await postData(`${GET_WORD}`, { word: search.value });
+        search.value = '';
+        router.push(`${CARDS}/${data.id}`);
+      } catch (error) {
+        search.value = '';
+      }
     };
 
     return {

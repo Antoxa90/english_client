@@ -38,7 +38,7 @@ export default {
       role.value = res.user ? res.user.role : '';
       store.commit('SET_AUTH', isAuth.value);
       store.commit('SET_USER', { username: username.value, role: role.value });
-      if (to.name !== 'AuthPage' && !isAuth.value) {
+      if (to.name !== 'AuthPage' && to.name !== 'SignUpPage' && !isAuth.value) {
         next({ name: 'AuthPage' });
       } else {
         next();

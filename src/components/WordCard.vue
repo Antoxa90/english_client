@@ -17,7 +17,7 @@
         </li>
       </ul>
     </div>
-    <div v-if="editMode">
+    <div v-if="editMode && isAdmin">
       <edit-word-card
         :id="id"
         :definition="item.definition"
@@ -25,7 +25,7 @@
       />
     </div>
     <div class="button-container">
-      <el-button @click="toggleEditMode" v-if="!editMode">Edit</el-button>
+      <el-button @click="toggleEditMode" v-if="!editMode && isAdmin">Edit</el-button>
       <el-button v-if="editMode" @click="onCancel">Cancel</el-button>
     </div>
   </div>
@@ -37,10 +37,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { GET_WORDS } from '../constants/routes';
 import { getData } from '../utils/httpUtils';
 import EditWordCard from './EditWordCard.vue';
+import { useStore } from 'vuex';
+import { USER_ROLE } from '../constants/common';
 
 export default {
   components: { EditWordCard },
   setup() {
+    const store = useStore();
     const route = useRoute();
     const router = useRouter();
     const item = ref({});
@@ -66,6 +69,7 @@ export default {
     };
 
     return {
+      isAdmin: store.state.user.role === USER_ROLE['admin'],
       id: route.params.id,
       item,
       editMode,

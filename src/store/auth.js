@@ -30,9 +30,10 @@ export default {
         }
       }
       catch(error) {
-        commit('SET_ERROR', error);
+        commit('SET_ERROR', error.message);
         commit('SET_USER', {});
         commit('SET_AUTH', false);
+        throw new Error(error.message);
       }
     },
     async logout({ commit }) {
@@ -42,7 +43,7 @@ export default {
         commit('SET_AUTH', false);
         return true;
       } catch (error) {
-        commit('SET_ERROR', error);
+        commit('SET_ERROR', error.message);
       }
     },
     async signup({ commit }, user) {
@@ -53,7 +54,8 @@ export default {
         commit('SET_AUTH', true);
         return true;
       } catch (error) {
-        commit('SET_ERROR', error);
+        commit('SET_ERROR', error.message);
+        throw new Error(error.message);
       }
     }
   }

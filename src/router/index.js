@@ -3,31 +3,35 @@ import Main from '../views/Main.vue';
 import WordsCard from '../views/WordsCard.vue';
 import AuthPage from '../views/AuthPage.vue';
 import PackPage from '../views/PackPage';
-import store from '../store';
-import { getData } from '../utils/httpUtils';
-import { IS_AUTH } from '../constants/routes';
+import SignUpPage from '../views/SignUpPage';
+import { AUTH, CARDS, HOME, IS_AUTH, LEARN_WORDS, SIGN_UP } from '../constants/routes';
 
 const routes = [
   {
-    path: '/',
+    path: HOME,
     name: 'Main',
     component: Main
   },
   {
-    path: '/cards/:id',
+    path: `${CARDS}/:id`,
     name: 'WordsCard',
     component: WordsCard
   },
   {
-    path: '/auth',
+    path: AUTH,
     name: 'AuthPage',
     component: AuthPage
   },
   {
-    path: '/learn-words',
+    path: LEARN_WORDS,
     name: 'PackPage',
     component: PackPage
-  }
+  },
+  {
+    path: SIGN_UP,
+    name: 'SignUpPage',
+    component: SignUpPage
+  },
 ];
 
 const router = createRouter({

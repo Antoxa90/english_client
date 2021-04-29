@@ -3,6 +3,8 @@
 export const HOME = '/';
 export const CARDS = '/cards';
 export const LEARN_WORDS = '/learn-words';
+export const SIGN_UP = '/sign-up';
+export const AUTH = '/auth';
 
 export const GET_WORDS = '/api/words';
 export const GET_WORD = '/api/word';
