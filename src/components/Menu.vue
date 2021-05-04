@@ -11,15 +11,14 @@
 </template>
 
 <script>
-import { HOME, LEARN_WORDS } from '../constants/routes';
+import { HOME, LEARN_WORDS, PROFILE } from '../constants/routes';
 
 export default {
   setup() {
     const menuItems = [
       { name: 'Words List', route: HOME, roles: [] },
-      { name: 'Packs', route: '#', roles: [] },
       { name: 'Learn Words', route: LEARN_WORDS, roles: [] },
-      { name: 'Profile', route: '#', roles: [] },
+      { name: 'Profile', route: PROFILE, roles: [] },
     ];
     
     return {

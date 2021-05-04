@@ -67,6 +67,7 @@ export default {
 
     const deleteWord = async (id) => {
       await deleteData(`${GET_WORDS}/${id}`);
+      // TODO: delete this id from all users
       search.value = '';
       getWords(pagination.value.page, pagination.value.limit);
     };

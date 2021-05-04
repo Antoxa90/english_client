@@ -37,6 +37,7 @@
             @update:modalVisible="modalVisible = $event"
           />
         </template>
+        <div v-else class="not-found">Words not found!</div>
       </div>
       <div><i class="el-icon-arrow-right nav-icon" @click="getNextWord"/></div>
     </div>
@@ -53,8 +54,14 @@ import AddToPackPopover from './AddToPackPopover.vue';
 import ExamplesModal from './ExamplesModal.vue';
 
 export default {
+  props: {
+    fetchData: {
+      type: Function,
+      default: getData,
+    }
+  },
   components: { AddToPackPopover, ExamplesModal },
-  setup() {
+  setup(props) {
     const store = useStore();
     const limit = 10;
     const words = ref([]);
@@ -70,7 +77,7 @@ export default {
     
     const getWords = async (page = 1, limit = 10, search = '') => {
       const url = `${GET_WORDS}?page=${page}&limit=${limit}${search ? `&search=${search}` : ''}`;
-      const response = await getData(url);
+      const response = await props.fetchData(url);
       const { data, ...restPagination } = response;
       words.value = data;
       pagination.value = restPagination;
@@ -98,7 +105,7 @@ export default {
     const isInPack = () => {
       isFavourite.value = false;
       packNames.value = [];
-      const wordId = words.value[index.value].id;
+      const wordId = words.value[index.value]?.id;
       const inPackArr = packs.value.filter((pack) => pack.data.includes(wordId));
       if (inPackArr.length > 0) {
         isFavourite.value = inPackArr.some((pack) => pack.name === DEFAULT_PACK_NAME);
@@ -268,6 +275,11 @@ export default {
         font-style: italic;
         text-decoration: underline;
         cursor: pointer;
+      }
+
+      .not-found {
+        font-weight: bold;
+        font-size: 1.5rem;
       }
     }
   }
