@@ -5,6 +5,7 @@ import AuthPage from '../views/AuthPage.vue';
 import PackPage from '../views/PackPage';
 import SignUpPage from '../views/SignUpPage';
 import ProfilePage from '../views/ProfilePage';
+import NotFoundPage from '../views/NotFoundPage';
 import { AUTH, CARDS, HOME, LEARN_WORDS, PROFILE, SIGN_UP } from '../constants/routes';
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
     path: PROFILE,
     name: 'ProfilePage',
     component: ProfilePage,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFoundPage',
+    component: NotFoundPage
   },
 ];
 

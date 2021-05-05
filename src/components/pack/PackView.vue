@@ -76,11 +76,16 @@ export default {
     const alphabet = ['All', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     
     const getWords = async (page = 1, limit = 10, search = '') => {
-      const url = `${GET_WORDS}?page=${page}&limit=${limit}${search ? `&search=${search}` : ''}`;
-      const response = await props.fetchData(url);
-      const { data, ...restPagination } = response;
-      words.value = data;
-      pagination.value = restPagination;
+      try {
+        const url = `${GET_WORDS}?page=${page}&limit=${limit}${search ? `&search=${search}` : ''}`;
+        const response = await props.fetchData(url);
+        const { data, ...restPagination } = response;
+        words.value = data;
+        pagination.value = restPagination;
+      } catch (error) {
+        console.log(error);
+        store.commit('SET_ERROR', error);
+      }
     };
 
     const getWordsStartWith = async (letter) => {
