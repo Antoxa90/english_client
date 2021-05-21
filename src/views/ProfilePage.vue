@@ -19,6 +19,7 @@
       </div>
       <pack-view :fetchData="getWords"/>
     </div>
+    <div v-if="packs.length === 0" class="no-packs">You have no packs</div>
   </div>
 </template>
 
@@ -100,6 +101,13 @@ export default {
     .wrapper {
       display: flex;
       align-items: center;
+    }
+
+    .no-packs {
+      text-align: center;
+      font-size: 2rem;
+      margin-top: 2rem;
+      font-weight: bold;
     }
   }
 

@@ -16,6 +16,7 @@
             {{ name }}
           </li>
         </ul>
+        <div v-if="allPackNames.length === 0">No available packs</div>
         <el-input
           :model-value="newPackName"
           @input="updatePackName"

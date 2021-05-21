@@ -11,6 +11,7 @@
           type="text"
           @input="onChangeExample($event, index)"
           :modelValue="example"
+          @blur="updateWordCard"
         />
         <el-button @click="onDeleteExample(index)">Delete</el-button>
       </li>
@@ -65,9 +66,8 @@ export default {
       updateWordCard();
     };
 
-    const onChangeExample = async (value, index) => {
+    const onChangeExample = (value, index) => {
       examples.value[index] = value;
-      updateWordCard();
     };
 
     const onDeleteExample = (index) => {
@@ -96,6 +96,7 @@ export default {
       onDeleteExample,
       onAddExample,
       onAddExampleChange,
+      updateWordCard,
     };
   },
 };

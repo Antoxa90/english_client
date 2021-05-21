@@ -7,7 +7,7 @@
         @input="searchChange"
         clearable
       ></el-input>
-      <el-button :disabled="!search" @click="addWord">Add</el-button>
+      <el-button v-if="isAdmin" :disabled="!search" @click="addWord">Add</el-button>
     </div>
     <el-table :data="words">
       <el-table-column type="index" label="№"/>
@@ -19,7 +19,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="type" label="Type"/>
-      <el-table-column>
+      <el-table-column v-if="isAdmin">
         <template #default="scope">
           <el-button @click="deleteWord(scope.row.id)">Delete</el-button>
         </template>
@@ -40,9 +40,12 @@ import { onMounted, ref } from 'vue';
 import { CARDS, GET_WORD, GET_WORDS } from '../constants/routes';
 import { deleteData, getData, postData } from '../utils/httpUtils';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { USER_ROLE } from '../constants/common';
 
 export default {
   setup() {
+    const store = useStore();
     const words = ref([]);
     const pagination = ref({});
     const search = ref('');
@@ -91,6 +94,7 @@ export default {
     };
 
     return {
+      isAdmin: store.state.user.role === USER_ROLE['admin'],
       words,
       pagination,
       search,
