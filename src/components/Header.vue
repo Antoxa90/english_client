@@ -32,16 +32,20 @@ export default {
     const isOpenMenu = ref(false);
     
     const checkAuth = async (to, from, next) => {
-      const res = await getData(IS_AUTH);
-      isAuth.value = !!res.success;
-      username.value = res.user ? res.user.username : '';
-      role.value = res.user ? res.user.role : '';
-      store.commit('SET_AUTH', isAuth.value);
-      store.commit('SET_USER', { username: username.value, role: role.value });
-      if (to.name !== 'AuthPage' && to.name !== 'SignUpPage' && !isAuth.value) {
-        next({ name: 'AuthPage' });
-      } else {
-        next();
+      try {
+        const res = await getData(IS_AUTH);
+        isAuth.value = !!res.success;
+        username.value = res.user ? res.user.username : '';
+        role.value = res.user ? res.user.role : '';
+        store.commit('SET_AUTH', isAuth.value);
+        store.commit('SET_USER', { username: username.value, role: role.value });
+        if (to.name !== 'AuthPage' && to.name !== 'SignUpPage' && !isAuth.value) {
+          next({ name: 'AuthPage' });
+        } else {
+          next();
+        }
+      } catch (error) {
+        store.commit('SET_ERROR', error.message);
       }
     };
 

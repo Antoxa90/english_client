@@ -3,11 +3,13 @@ import auth from './auth';
 
 const store = createStore({
   state: {
-    error: {}
+    errorMessage: '',
+    isOpenErrorModal: false,
   },
   mutations: {
-    SET_ERROR(state, data) {
-      state.error = data;
+    SET_ERROR(state, message) {
+      state.errorMessage = message;
+      state.isOpenErrorModal = !!message;
     }
   },
   modules: {

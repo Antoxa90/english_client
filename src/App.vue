@@ -4,16 +4,19 @@
     <div class="content">
       <router-view/>
     </div>
+    <error-modal/>
   </div>
 </template>
 
 <script>
+import ErrorModal from './components/ErrorModal.vue';
 import Header from './components/Header.vue';
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    ErrorModal
   },
   setup() {
   }

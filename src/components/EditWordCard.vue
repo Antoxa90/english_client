@@ -32,6 +32,7 @@
 import { ref } from 'vue';
 import { putData } from '../utils/httpUtils';
 import { GET_WORDS } from '../constants/routes';
+import { useStore } from 'vuex';
 
 export default {
   props: {
@@ -49,16 +50,21 @@ export default {
     }
   },
   setup(props) {
+    const store = useStore();
     const definition = ref(props.definition);
     const examples = ref(props.examples);
     const additionalExample = ref('');
 
     const updateWordCard = async () => {
-      const data = {
-        definition: definition.value,
-        examples: examples.value,
-      };
-      await putData(`${GET_WORDS}/${props.id}`, data);
+      try {
+        const data = {
+          definition: definition.value,
+          examples: examples.value,
+        };
+        await putData(`${GET_WORDS}/${props.id}`, data);
+      } catch (error) {
+        store.commit('SET_ERROR', error.message);
+      }
     };
 
     const onDefinitionChange = (value) => {

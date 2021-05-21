@@ -54,12 +54,15 @@ export default {
     const getWords = async (page, limit = 10, search = '') => {
       sessionStorage.setItem('page', page);
       sessionStorage.setItem('limit', limit);
-
-      const url = `${GET_WORDS}?page=${page}&limit=${limit}${search ? `&search=${search}`: ''}`;
-      const response = await getData(url);
-      const { data, ...restPagination } = response;
-      words.value = data;
-      pagination.value = restPagination;
+      try {
+        const url = `${GET_WORDS}?page=${page}&limit=${limit}${search ? `&search=${search}`: ''}`;
+        const response = await getData(url);
+        const { data, ...restPagination } = response;
+        words.value = data;
+        pagination.value = restPagination;
+      } catch (error) {
+        store.commit('SET_ERROR', error.message);
+      }
     };
 
     onMounted(() => {
@@ -69,10 +72,14 @@ export default {
     });
 
     const deleteWord = async (id) => {
-      await deleteData(`${GET_WORDS}/${id}`);
-      // TODO: delete this id from all users
-      search.value = '';
-      getWords(pagination.value.page, pagination.value.limit);
+      try {
+        await deleteData(`${GET_WORDS}/${id}`);
+        // TODO: delete this id from all users
+        search.value = '';
+        getWords(pagination.value.page, pagination.value.limit);
+      } catch (error) {
+        store.commit('SET_ERROR', error.message);
+      }
     };
 
     const searchChange = async () => {
@@ -90,6 +97,7 @@ export default {
         router.push(`${CARDS}/${data.id}`);
       } catch (error) {
         search.value = '';
+        store.commit('SET_ERROR', error.message);
       }
     };
 

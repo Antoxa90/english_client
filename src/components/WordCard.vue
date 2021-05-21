@@ -50,7 +50,11 @@ export default {
     const editMode = ref(false);
 
     const getWordById = async () => {
-      item.value = await getData(`${GET_WORDS}/${route.params.id}`);
+      try {
+        item.value = await getData(`${GET_WORDS}/${route.params.id}`);
+      } catch (error) {
+        store.commit('SET_ERROR', error.message);
+      }
     };
 
     onMounted(getWordById);

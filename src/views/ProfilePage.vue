@@ -41,9 +41,13 @@ export default {
     const curPackName = ref('');
     
     const getUserInfo = async () => {
-      const username = store.state.user && store.state.user.username;
-      const data = await getData(GET_USER_INFO(username));
-      packs.value = data.packs;
+      try {
+        const username = store.state.user && store.state.user.username;
+        const data = await getData(GET_USER_INFO(username));
+        packs.value = data.packs;
+      } catch (error) {
+        store.commit('SET_ERROR', error.message);
+      }
     };
 
     onMounted(getUserInfo);
