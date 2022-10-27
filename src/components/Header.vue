@@ -1,7 +1,7 @@
 <template>
   <div class="header" v-if="isAuth">
     <i class="el-icon-menu menu" @click="toggleMenu"/>
-    <Menu v-if="isOpenMenu" />
+    <Menu v-if="isOpenMenu" @click:link="toggleMenu" />
     <div class="heading">Learning English</div>
     <div class="user">
       <div>Username: {{ username }}</div>

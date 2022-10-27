@@ -1,7 +1,7 @@
 <template>
   <div class="menu-container">
     <ul>
-      <li class="menu-item" v-for="item of menuItems" :key="item.route">
+      <li class="menu-item" v-for="item of menuItems" :key="item.route" @click="onClickLink">
         <router-link :to="item.route" tag="span" class="menu-link">
           {{ item.name }}
         </router-link>
@@ -11,18 +11,24 @@
 </template>
 
 <script>
-import { HOME, LEARN_WORDS, PROFILE } from '../constants/routes';
+import { HOME, LEARN_WORDS, PROFILE, IRREGULAR_VERBS } from '../constants/routes';
 
 export default {
-  setup() {
+  setup(_, { emit }) {
     const menuItems = [
       { name: 'Words List', route: HOME, roles: [] },
       { name: 'Learn Words', route: LEARN_WORDS, roles: [] },
+      { name: 'Irregular Verbs', route: IRREGULAR_VERBS, roles: [] },
       { name: 'Profile', route: PROFILE, roles: [] },
     ];
+
+    const onClickLink = () => {
+      emit('click:link');
+    };
     
     return {
       menuItems,
+      onClickLink,
     };
   },
 };

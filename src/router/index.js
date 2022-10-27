@@ -5,8 +5,9 @@ import AuthPage from '../views/AuthPage.vue';
 import PackPage from '../views/PackPage';
 import SignUpPage from '../views/SignUpPage';
 import ProfilePage from '../views/ProfilePage';
+import IrregularVerbsPage from '../views/IrregularVerbsPage';
 import NotFoundPage from '../views/NotFoundPage';
-import { AUTH, CARDS, HOME, LEARN_WORDS, PROFILE, SIGN_UP } from '../constants/routes';
+import { AUTH, CARDS, HOME, IRREGULAR_VERBS, LEARN_WORDS, PROFILE, SIGN_UP } from '../constants/routes';
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
     path: PROFILE,
     name: 'ProfilePage',
     component: ProfilePage,
+  },
+  {
+    path: IRREGULAR_VERBS,
+    name: 'IrregularVerbsPage',
+    component: IrregularVerbsPage,
   },
   {
     path: '/:pathMatch(.*)*',
